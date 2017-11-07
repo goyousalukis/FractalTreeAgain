@@ -5,17 +5,9 @@
  */
 package javasvg;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import javax.swing.JFrame;
-import org.jfree.graphics2d.svg.SVGGraphics2D; 
-
 /**
  *
- * @author winsock
+ * @author justinAhrens
  */
 
 
