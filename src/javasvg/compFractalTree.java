@@ -105,20 +105,27 @@ public class compFractalTree extends JComponent{
             x=0;
             y=0;
         }
-        int bl1 = -5 + r.nextInt(10);
-        int bl2 = -5 + r.nextInt(10);
+        int bl1 = -3 + r.nextInt(6);
+        int bl2 = -3 + r.nextInt(6);
         if (!branchLengthRandom){
             bl1=0;
             bl2=0;
         }
         Graphics2D g2 = (Graphics2D) g;
-        float dash1[] = {10.0f, 9.0f,5.0f};
+        float dash1[] = {10.0f, 3.0f,5.0f};
 //        BasicStroke bs = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
-        BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
+        BasicStroke bs = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
+        BasicStroke thinLine = new BasicStroke(depth -1);
         BasicStroke circle = new BasicStroke(2.0f);
         BasicStroke bss = new BasicStroke(depth-1, lineStroke.getEndCap(), lineStroke.getLineJoin(), lineStroke.getMiterLimit(), lineStroke.getDashArray(), lineStroke.getDashPhase());
         
-        if(thickBranches)g2.setStroke(bs);
+        if(thickBranches)
+            if (depth < (treeDepth-2))
+               g2.setStroke(bs);
+            else
+                g2.setStroke(thinLine);
+        else
+            g2.setStroke(new BasicStroke(1));
         
         
         
@@ -127,10 +134,10 @@ public class compFractalTree extends JComponent{
         
         
         g.setColor(getColor(rootColor,tipColor,depth));
-        if (depth<4) {
-            g2.setStroke(circle);
-            fillCenteredCircle((Graphics2D) g,x1, y1, (depth*branchLength)/4);
-        }
+        //if (depth<4) {
+        //    g2.setStroke(circle);
+        //    fillCenteredCircle((Graphics2D) g,x1, y1, (depth*branchLength)/6);
+       // }
         g.drawLine(x1, y1, x2, y2);
     //  
 
