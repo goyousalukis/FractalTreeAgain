@@ -60,6 +60,9 @@ public class JavaFrame extends javax.swing.JFrame {
         jCheckBoxBranchAngleRandom.setSelected(compFractalTree1.getBranchAngleRandom());
         jCheckBoxThickBranches.setSelected(compFractalTree1.getThickBranches());
         jCheckBoxRandomColor.setSelected(compFractalTree1.getRandomColor());
+        jCheckBoxBerries.setSelected(compFractalTree1.getBerries());
+        jCheckBoxDashes.setSelected(compFractalTree1.getDashes());
+        jCheckBoxDeadBranches.setSelected(compFractalTree1.getDeadBranches());
         txtFieldSliderValue.setText("0");
         compFractalTree1.treeColor = Color.WHITE;
         compFractalTree1.rootColor = Color.MAGENTA;
@@ -81,6 +84,10 @@ public class JavaFrame extends javax.swing.JFrame {
         jCheckBoxThickBranches.setSelected(false);
         compFractalTree1.setBranchAngleRandom(false);
         compFractalTree1.setBranchLengthRandom(false);
+        jCheckBoxThickBranches.setSelected(false);
+        jCheckBoxBerries.setSelected(false);
+        jCheckBoxDashes.setSelected(false);
+        jCheckBoxDeadBranches.setSelected(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,6 +125,10 @@ public class JavaFrame extends javax.swing.JFrame {
         jSliderRandomColorValue = new javax.swing.JSlider();
         jButtonLineStroke = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jButtonBerryColor = new javax.swing.JButton();
+        jCheckBoxBerries = new javax.swing.JCheckBox();
+        jCheckBoxDashes = new javax.swing.JCheckBox();
+        jCheckBoxDeadBranches = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         compFractalTree1 = new javasvg.compFractalTree();
         jspaneStatus = new javax.swing.JScrollPane();
@@ -299,6 +310,34 @@ public class JavaFrame extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Slider Value Box");
 
+        jButtonBerryColor.setText("Berry Color");
+        jButtonBerryColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBerryColorActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxBerries.setText("Berries");
+        jCheckBoxBerries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxBerriesActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxDashes.setText("Dashed Lines");
+        jCheckBoxDashes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxDashesActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxDeadBranches.setText("Dead Branches");
+        jCheckBoxDeadBranches.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxDeadBranchesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -333,22 +372,30 @@ public class JavaFrame extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jSliderTrunkAngle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(buttonTreeColor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(buttonBackgroundColor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(buttonTreeColor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(buttonBackgroundColor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(4, 4, 4))
+                                    .addComponent(buttonTipColor, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonBerryColor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonLineStroke)))
-                        .addContainerGap(59, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBoxRandomColor)
                             .addComponent(jSliderRandomColorValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(buttonTipColor, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(txtFieldSliderValue, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCheckBoxBerries)
+                                    .addComponent(jCheckBoxDashes))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
+                                .addGap(46, 46, 46)
+                                .addComponent(txtFieldSliderValue, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCheckBoxDeadBranches))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -391,25 +438,31 @@ public class JavaFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxThickBranches)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldSliderValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonTipColor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(buttonTreeColor)
+                        .addComponent(jCheckBoxBerries)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonBackgroundColor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonLineStroke)
-                        .addGap(26, 26, 26)))
+                        .addComponent(jCheckBoxDashes))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFieldSliderValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxDeadBranches)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonTipColor)
+                    .addComponent(jButtonLineStroke))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonTreeColor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonBackgroundColor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonBerryColor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCheckBoxRandomColor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSliderRandomColorValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
@@ -423,14 +476,14 @@ public class JavaFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(compFractalTree1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                .addComponent(compFractalTree1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(compFractalTree1, javax.swing.GroupLayout.DEFAULT_SIZE, 1086, Short.MAX_VALUE))
+                .addComponent(compFractalTree1, javax.swing.GroupLayout.DEFAULT_SIZE, 1101, Short.MAX_VALUE))
         );
 
         jspaneStatus.setViewportView(jTextPane1);
@@ -590,6 +643,26 @@ public class JavaFrame extends javax.swing.JFrame {
         compFractalTree1.lineStroke = getStrokeDialog();
         compFractalTree1.repaint();
     }//GEN-LAST:event_jButtonLineStrokeActionPerformed
+
+    private void jButtonBerryColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBerryColorActionPerformed
+        compFractalTree1.berryColor = JColorChooser.showDialog(
+                JavaFrame.this,
+                "Choose Color",
+                Color.white);  
+        compFractalTree1.repaint();
+    }//GEN-LAST:event_jButtonBerryColorActionPerformed
+
+    private void jCheckBoxBerriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxBerriesActionPerformed
+        compFractalTree1.setBerries(jCheckBoxBerries.isSelected());        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxBerriesActionPerformed
+
+    private void jCheckBoxDashesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxDashesActionPerformed
+        compFractalTree1.setDashes(jCheckBoxDashes.isSelected());// TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxDashesActionPerformed
+
+    private void jCheckBoxDeadBranchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxDeadBranchesActionPerformed
+        compFractalTree1.setDeadBranches(jCheckBoxDeadBranches.isSelected());
+    }//GEN-LAST:event_jCheckBoxDeadBranchesActionPerformed
     private BasicStroke getStrokeDialog()
     {
 
@@ -680,10 +753,14 @@ public class JavaFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonTreeColor;
     private javasvg.compFractalTree compFractalTree1;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JButton jButtonBerryColor;
     private javax.swing.JButton jButtonLineStroke;
     private javax.swing.JButton jButtonReset;
+    private javax.swing.JCheckBox jCheckBoxBerries;
     private javax.swing.JCheckBox jCheckBoxBranchAngleRandom;
     private javax.swing.JCheckBox jCheckBoxBranchLengthRandom;
+    private javax.swing.JCheckBox jCheckBoxDashes;
+    private javax.swing.JCheckBox jCheckBoxDeadBranches;
     private javax.swing.JCheckBox jCheckBoxRandomColor;
     private javax.swing.JCheckBox jCheckBoxThickBranches;
     private javax.swing.JLabel jLabel1;
