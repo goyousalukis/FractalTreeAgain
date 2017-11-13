@@ -47,6 +47,7 @@ public class compFractalTree extends JComponent{
     public Color rootColor;
     public Color tipColor;
     public Color backgroundColor;
+    public Color berryColor;
     private boolean thickBranches;
     private boolean colorRandom;
     private int colorRandomValue;
@@ -68,6 +69,7 @@ public class compFractalTree extends JComponent{
     colorRandom = prefs.getBoolean("COLORRANDOM", false);
     colorRandomValue = prefs.getInt("COLORRANDOMVALUE", 100);
     lineStroke = new BasicStroke(1.0f);
+    berryColor = Color.CYAN;
     
     }
     
@@ -81,7 +83,8 @@ public class compFractalTree extends JComponent{
         gs2.setPaint(rootColor);
         this.setBackground(backgroundColor);
         g2.setColor(rootColor);
-        drawTree(g2,centerX,d.height - 25,trunkAngle-90,treeDepth);
+        drawTree(g2,centerX,centerY+300,trunkAngle-90,treeDepth);
+        //drawTree(g2,centerX,centerY,trunkAngle+90,treeDepth);
         drawTree(gs2,centerX,d.height - 25,trunkAngle-90,treeDepth);
         svgElement = gs2.getSVGElement();  
         ViewBox v = new ViewBox(0,0,800,800);
@@ -96,48 +99,60 @@ public class compFractalTree extends JComponent{
     }
     
     private void drawTree(Graphics g, int x1, int y1, double angle, int depth) {
+        int x,y,bl1,bl2;
+        
         if (treeColor == null) treeColor=Color.BLACK;
         if (depth == 0) return;
         Random r = new Random();
-        int x = -5 + r.nextInt(10);
-        int y = -5 + r.nextInt(10);
+        x = -5 + r.nextInt(10);
+        y = -5 + r.nextInt(10);
         if (!branchAngleRandom){
             x=0;
             y=0;
         }
-        int bl1 = -3 + r.nextInt(6);
-        int bl2 = -3 + r.nextInt(6);
+        bl1 = -5 + r.nextInt(10);
+        bl2 = -5 + r.nextInt(10);
         if (!branchLengthRandom){
             bl1=0;
             bl2=0;
         }
+
+        Random p = new Random();        
         Graphics2D g2 = (Graphics2D) g;
-        float dash1[] = {10.0f, 3.0f,5.0f};
+        float t, u, v , w;
+        t = p.nextFloat()*10;
+        u = p.nextFloat()*10;
+        v = p.nextFloat()*10;
+        w = p.nextFloat()*10;
+        System.out.println(t);
+        float dash1[] = {t,u,v,w};
 //        BasicStroke bs = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
         BasicStroke bs = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
         BasicStroke thinLine = new BasicStroke(depth -1);
         BasicStroke circle = new BasicStroke(2.0f);
         BasicStroke bss = new BasicStroke(depth-1, lineStroke.getEndCap(), lineStroke.getLineJoin(), lineStroke.getMiterLimit(), lineStroke.getDashArray(), lineStroke.getDashPhase());
         
-        if(thickBranches)
-            if (depth < (treeDepth-2))
-               g2.setStroke(bs);
+        if(thickBranches) g2.setStroke(bs);
+        /*    if (depth < (treeDepth-2))
+               
             else
                 g2.setStroke(thinLine);
         else
             g2.setStroke(new BasicStroke(1));
-        
+        */
         
         
         int x2 = x1 + (int) (Math.cos(Math.toRadians(angle+x)) * depth * (branchLength+bl1));
         int y2 = y1 + (int) (Math.sin(Math.toRadians(angle+y)) * depth * (branchLength+bl2));
         
         
+        g2.setColor(berryColor);
+        if (depth<treeDepth/2) {
+            g2.setStroke(bs);
+            fillCenteredCircle((Graphics2D) g,x2, y2, (depth*branchLength)/2);
+        }
         g.setColor(getColor(rootColor,tipColor,depth));
-        //if (depth<4) {
-        //    g2.setStroke(circle);
-        //    fillCenteredCircle((Graphics2D) g,x1, y1, (depth*branchLength)/6);
-       // }
+        if(thickBranches) g2.setStroke(bs);
         g.drawLine(x1, y1, x2, y2);
     //  
 

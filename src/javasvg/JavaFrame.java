@@ -78,6 +78,7 @@ public class JavaFrame extends javax.swing.JFrame {
         jSliderRightBranchAngle.setValue(0);
         jCheckBoxBranchLengthRandom.setSelected(false);
         jCheckBoxBranchAngleRandom.setSelected(false);
+        jCheckBoxThickBranches.setSelected(false);
         compFractalTree1.setBranchAngleRandom(false);
         compFractalTree1.setBranchLengthRandom(false);
     }
@@ -99,7 +100,6 @@ public class JavaFrame extends javax.swing.JFrame {
         jSliderBranchLength = new javax.swing.JSlider();
         jSliderBranchAngle = new javax.swing.JSlider();
         jLabel4 = new javax.swing.JLabel();
-        buttonSaveSVG = new javax.swing.JButton();
         jSliderTrunkAngle = new javax.swing.JSlider();
         jLabel5 = new javax.swing.JLabel();
         jSliderLeftBranchAngle = new javax.swing.JSlider();
@@ -117,6 +117,7 @@ public class JavaFrame extends javax.swing.JFrame {
         jCheckBoxRandomColor = new javax.swing.JCheckBox();
         jSliderRandomColorValue = new javax.swing.JSlider();
         jButtonLineStroke = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         compFractalTree1 = new javasvg.compFractalTree();
         jspaneStatus = new javax.swing.JScrollPane();
@@ -143,6 +144,7 @@ public class JavaFrame extends javax.swing.JFrame {
         jSliderDepth.setPaintLabels(true);
         jSliderDepth.setPaintTicks(true);
         jSliderDepth.setSnapToTicks(true);
+        jSliderDepth.setToolTipText("This slider sets the depth of the fractal. \nThe default is 9. The higher you go, the \ndeeper the fractal becomes. If you go to \na high level, you may notice a lag depending\n on the speed and memory of your computer.");
         jSliderDepth.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderDepthStateChanged(evt);
@@ -174,14 +176,6 @@ public class JavaFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Branch Angle");
         jLabel4.setToolTipText("");
-
-        buttonSaveSVG.setText("Quick Save");
-        buttonSaveSVG.setToolTipText("");
-        buttonSaveSVG.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSaveSVGActionPerformed(evt);
-            }
-        });
 
         jSliderTrunkAngle.setMajorTickSpacing(5);
         jSliderTrunkAngle.setMaximum(45);
@@ -219,6 +213,7 @@ public class JavaFrame extends javax.swing.JFrame {
             }
         });
 
+        jCheckBoxBranchLengthRandom.setToolTipText("Randomize");
         jCheckBoxBranchLengthRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxBranchLengthRandomActionPerformed(evt);
@@ -233,8 +228,10 @@ public class JavaFrame extends javax.swing.JFrame {
         });
 
         txtFieldSliderValue.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        txtFieldSliderValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFieldSliderValue.setText("jTextField1");
 
+        jCheckBoxBranchAngleRandom.setToolTipText("Randomize");
         jCheckBoxBranchAngleRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxBranchAngleRandomActionPerformed(evt);
@@ -299,6 +296,9 @@ public class JavaFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("Slider Value Box");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -306,12 +306,6 @@ public class JavaFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonSaveSVG, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonTipColor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFieldSliderValue, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSliderDepth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,7 +342,13 @@ public class JavaFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBoxRandomColor)
-                            .addComponent(jSliderRandomColorValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSliderRandomColorValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(buttonTipColor, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtFieldSliderValue, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -391,12 +391,11 @@ public class JavaFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxThickBranches)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(buttonSaveSVG)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonTipColor))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFieldSliderValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonTipColor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -410,10 +409,14 @@ public class JavaFrame extends javax.swing.JFrame {
                 .addComponent(jCheckBoxRandomColor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSliderRandomColorValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(210, 222, 234));
+        jPanel2.setBackground(new java.awt.Color(254, 254, 254));
+
+        compFractalTree1.setBackground(new java.awt.Color(228, 27, 27));
+        compFractalTree1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        compFractalTree1.setForeground(new java.awt.Color(250, 243, 243));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -427,14 +430,14 @@ public class JavaFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(compFractalTree1, javax.swing.GroupLayout.DEFAULT_SIZE, 1073, Short.MAX_VALUE))
+                .addComponent(compFractalTree1, javax.swing.GroupLayout.DEFAULT_SIZE, 1086, Short.MAX_VALUE))
         );
 
         jspaneStatus.setViewportView(jTextPane1);
 
         jMenu1.setText("File");
 
-        jMenuItemSetFilename.setText("Set Filename");
+        jMenuItemSetFilename.setText("Save");
         jMenuItemSetFilename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemSetFilenameActionPerformed(evt);
@@ -495,14 +498,6 @@ public class JavaFrame extends javax.swing.JFrame {
         compFractalTree1.setBranchAngle(jSliderBranchAngle.getValue());// TODO add your handling code here:
         txtFieldSliderValue.setText(Integer.toString(jSliderBranchAngle.getValue()));
     }//GEN-LAST:event_jSliderBranchAngleStateChanged
-
-    private void buttonSaveSVGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveSVGActionPerformed
-        try {
-            altWriteSVGFile(FILE_NAME);// TODO add your handling code here:
-        } catch (IOException ex) {
-            Logger.getLogger(JavaFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_buttonSaveSVGActionPerformed
 
     private void jSliderTrunkAngleStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderTrunkAngleStateChanged
         compFractalTree1.setTrunkAngle(jSliderTrunkAngle.getValue());// TODO add your handling code here:
@@ -681,7 +676,6 @@ public class JavaFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBackgroundColor;
-    private javax.swing.JButton buttonSaveSVG;
     private javax.swing.JButton buttonTipColor;
     private javax.swing.JButton buttonTreeColor;
     private javasvg.compFractalTree compFractalTree1;
@@ -699,6 +693,7 @@ public class JavaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
