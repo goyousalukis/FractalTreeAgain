@@ -27,11 +27,6 @@ import org.jfree.graphics2d.svg.ViewBox;
  */
 public class compFractalTree extends JComponent{
 
-
-
-
-
-
     private Preferences prefs;
     
     private int branchLength; 
@@ -50,6 +45,9 @@ public class compFractalTree extends JComponent{
     public Color berryColor;
     private boolean thickBranches;
     private boolean colorRandom;
+    private boolean berries;
+    public boolean dashes;
+    public boolean deadBranches;
     private int colorRandomValue;
     public BasicStroke lineStroke;
     
@@ -69,7 +67,10 @@ public class compFractalTree extends JComponent{
     colorRandom = prefs.getBoolean("COLORRANDOM", false);
     colorRandomValue = prefs.getInt("COLORRANDOMVALUE", 100);
     lineStroke = new BasicStroke(1.0f);
-    berryColor = Color.CYAN;
+    berryColor = Color.green;
+    berries = prefs.getBoolean("BERRIES", false);
+    dashes = prefs.getBoolean("DASHES", false);
+    deadBranches = prefs.getBoolean("DEADBRANCHES", false);
     
     }
     
@@ -120,44 +121,64 @@ public class compFractalTree extends JComponent{
         Random p = new Random();        
         Graphics2D g2 = (Graphics2D) g;
         float t, u, v , w;
-        t = p.nextFloat()*10;
-        u = p.nextFloat()*10;
-        v = p.nextFloat()*10;
-        w = p.nextFloat()*10;
-        System.out.println(t);
+        t = p.nextFloat()*15;
+        u = p.nextFloat()*15;
+        v = p.nextFloat()*15;
+        w = p.nextFloat()*15;
+        //System.out.println(t);
         float dash1[] = {t,u,v,w};
 //        BasicStroke bs = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
-        BasicStroke bs = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
-        BasicStroke thinLine = new BasicStroke(depth -1);
+        BasicStroke strokeThickDashed = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
+        BasicStroke strokeThick = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        BasicStroke thinLine = new BasicStroke(2);
         BasicStroke circle = new BasicStroke(2.0f);
         BasicStroke bss = new BasicStroke(depth-1, lineStroke.getEndCap(), lineStroke.getLineJoin(), lineStroke.getMiterLimit(), lineStroke.getDashArray(), lineStroke.getDashPhase());
         
-        if(thickBranches) g2.setStroke(bs);
-        /*    if (depth < (treeDepth-2))
-               
-            else
-                g2.setStroke(thinLine);
-        else
-            g2.setStroke(new BasicStroke(1));
-        */
-        
+
         
         int x2 = x1 + (int) (Math.cos(Math.toRadians(angle+x)) * depth * (branchLength+bl1));
         int y2 = y1 + (int) (Math.sin(Math.toRadians(angle+y)) * depth * (branchLength+bl2));
         
-        
+        if (berries){
         g2.setColor(berryColor);
+        
         if (depth<treeDepth/2) {
-            g2.setStroke(bs);
+            g2.setStroke(strokeThickDashed);
             fillCenteredCircle((Graphics2D) g,x2, y2, (depth*branchLength)/2);
         }
+        }
         g.setColor(getColor(rootColor,tipColor,depth));
-        if(thickBranches) g2.setStroke(bs);
+        if(thickBranches & dashes){
+            System.out.println("TRUE");
+            g2.setStroke(strokeThickDashed);
+        }
+        else if(thickBranches & !dashes) g2.setStroke(strokeThick); 
+        else g2.setStroke(new BasicStroke(1));
+        
+        
         g.drawLine(x1, y1, x2, y2);
     //  
-
-        drawTree(g, x2, y2, angle - branchAngle + leftBranchAngle, depth - 1);
-        drawTree(g, x2, y2, angle + branchAngle + rightBranchAngle, depth - 1);
+ 
+        if (deadBranches){
+            if (depth< treeDepth-4){
+                int myInt = r.nextInt(2);
+                if (myInt == 1) {
+                    drawTree(g, x2, y2, angle - branchAngle + leftBranchAngle, depth - 1);
+                }
+                myInt = r.nextInt(2);
+                if (myInt == 1) drawTree(g, x2, y2, angle + branchAngle + rightBranchAngle, depth - 1);
+                }
+            else
+                {
+                drawTree(g, x2, y2, angle - branchAngle + leftBranchAngle, depth - 1);   
+                drawTree(g, x2, y2, angle + branchAngle + rightBranchAngle, depth - 1);
+                }
+        }
+        else
+        {
+            drawTree(g, x2, y2, angle - branchAngle + leftBranchAngle, depth - 1);   
+            drawTree(g, x2, y2, angle + branchAngle + rightBranchAngle, depth - 1);   
+        }
     }    
     public void fillCenteredCircle(Graphics2D g, double x, double y, int r) {
         x = x-(r/2);
@@ -294,6 +315,33 @@ public class compFractalTree extends JComponent{
        
        //System.out.println("Iter:" + iter + "R:"+r+" G:"+g+" B:"+b);
        return new Color(r,g,b);
+    }
+
+    void setBerries(boolean selected) {
+        prefs.putBoolean("BERRIES", berries = selected );
+        this.repaint();
+    }
+
+    boolean getBerries() {
+        return prefs.getBoolean("BERRIES", false);
+    }
+
+    void setDashes(boolean selected) {
+        prefs.putBoolean("DASHES", dashes = selected );
+        this.repaint();
+    }
+
+    boolean getDashes() {
+             return prefs.getBoolean("DASHES", false);
+    }
+
+    void setDeadBranches(boolean selected) {
+        prefs.putBoolean("DEADBRANCHES", deadBranches = selected );
+        this.repaint();
+    }
+
+    boolean getDeadBranches() {
+        return prefs.getBoolean("DEADBRANCHES", false);
     }
 
    
