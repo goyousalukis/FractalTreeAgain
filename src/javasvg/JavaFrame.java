@@ -73,6 +73,8 @@ public class JavaFrame extends javax.swing.JFrame {
     }
     private void resetValues()
     {
+        //Reset the values to defaults...
+        //Another Comment
         jSliderDepth.setValue(9);
         jSliderBranchLength.setValue(10);
         jSliderBranchAngle.setValue(20);
