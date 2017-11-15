@@ -50,6 +50,7 @@ public class compFractalTree extends JComponent{
     public boolean deadBranches;
     private int colorRandomValue;
     public BasicStroke lineStroke;
+    public int pruneLevel;
     
     
     public compFractalTree() {
@@ -71,6 +72,7 @@ public class compFractalTree extends JComponent{
     berries = prefs.getBoolean("BERRIES", false);
     dashes = prefs.getBoolean("DASHES", false);
     deadBranches = prefs.getBoolean("DEADBRANCHES", false);
+    pruneLevel = prefs.getInt("PRUNELEVEL", 2);
     
     }
     
@@ -79,12 +81,13 @@ public class compFractalTree extends JComponent{
         Graphics2D g2 = (Graphics2D) g;
         Dimension d = getSize();
         int centerX = d.width / 2;
-        int centerY = d.height / 2;  
+        int centerY = 3*(d.height / 3);  
+        System.out.println(centerX + " "+ centerY);
         SVGGraphics2D gs2 = new SVGGraphics2D(d.width, d.height);
         gs2.setPaint(rootColor);
         this.setBackground(backgroundColor);
         g2.setColor(rootColor);
-        drawTree(g2,centerX,centerY+300,trunkAngle-90,treeDepth);
+        drawTree(g2,centerX,centerY,trunkAngle-90,treeDepth);
         //drawTree(g2,centerX,centerY,trunkAngle+90,treeDepth);
         drawTree(gs2,centerX,d.height - 25,trunkAngle-90,treeDepth);
         svgElement = gs2.getSVGElement();  
@@ -129,7 +132,9 @@ public class compFractalTree extends JComponent{
         float dash1[] = {t,u,v,w};
 //        BasicStroke bs = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
         BasicStroke strokeThickDashed = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
+        BasicStroke strokeThinDashed = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash1, 0.0f);
         BasicStroke strokeThick = new BasicStroke(depth-1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        
         BasicStroke thinLine = new BasicStroke(2);
         BasicStroke circle = new BasicStroke(2.0f);
         BasicStroke bss = new BasicStroke(depth-1, lineStroke.getEndCap(), lineStroke.getLineJoin(), lineStroke.getMiterLimit(), lineStroke.getDashArray(), lineStroke.getDashPhase());
@@ -140,19 +145,22 @@ public class compFractalTree extends JComponent{
         int y2 = y1 + (int) (Math.sin(Math.toRadians(angle+y)) * depth * (branchLength+bl2));
         
         if (berries){
-        g2.setColor(berryColor);
+            System.out.println("Berries");
+            g2.setColor(berryColor);
         
-        if (depth<treeDepth/2) {
-            g2.setStroke(strokeThickDashed);
-            fillCenteredCircle((Graphics2D) g,x2, y2, (depth*branchLength)/2);
-        }
+            if (depth<treeDepth/2) {
+                g2.setStroke(strokeThickDashed);
+                fillCenteredCircle((Graphics2D) g,x2, y2, (depth*branchLength)/2);
+            }
         }
         g.setColor(getColor(rootColor,tipColor,depth));
         if(thickBranches & dashes){
-            System.out.println("TRUE");
             g2.setStroke(strokeThickDashed);
         }
-        else if(thickBranches & !dashes) g2.setStroke(strokeThick); 
+        else 
+        if(thickBranches & !dashes) g2.setStroke(strokeThick); 
+        else 
+        if (!thickBranches & dashes) g2.setStroke(strokeThinDashed);
         else g2.setStroke(new BasicStroke(1));
         
         
@@ -161,12 +169,12 @@ public class compFractalTree extends JComponent{
  
         if (deadBranches){
             if (depth< treeDepth-4){
-                int myInt = r.nextInt(2);
-                if (myInt == 1) {
+                int myInt = r.nextInt(pruneLevel);
+                if (myInt < pruneLevel - 1) {
                     drawTree(g, x2, y2, angle - branchAngle + leftBranchAngle, depth - 1);
                 }
-                myInt = r.nextInt(2);
-                if (myInt == 1) drawTree(g, x2, y2, angle + branchAngle + rightBranchAngle, depth - 1);
+                myInt = r.nextInt(pruneLevel);
+                if (myInt < pruneLevel -1) drawTree(g, x2, y2, angle + branchAngle + rightBranchAngle, depth - 1);
                 }
             else
                 {
@@ -342,6 +350,14 @@ public class compFractalTree extends JComponent{
 
     boolean getDeadBranches() {
         return prefs.getBoolean("DEADBRANCHES", false);
+    }
+
+    void setPruneLevel(int value) {
+        prefs.putInt("PRUNELEVEL", pruneLevel = value );
+        this.repaint();
+    }
+    int getPruneLevel() {
+        return prefs.getInt("PRUNELEVEL", 1);
     }
 
    
