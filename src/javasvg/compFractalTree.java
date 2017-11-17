@@ -145,7 +145,7 @@ public class compFractalTree extends JComponent{
         int y2 = y1 + (int) (Math.sin(Math.toRadians(angle+y)) * depth * (branchLength+bl2));
         
         if (berries){
-            System.out.println("Berries");
+            //System.out.println("Berries");
             g2.setColor(berryColor);
         
             if (depth<treeDepth/2) {
